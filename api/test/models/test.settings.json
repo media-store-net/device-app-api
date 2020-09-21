@@ -1,0 +1,12 @@
+{
+  "kind": "singleType",
+  "collectionName": "tests",
+  "info": {
+    "name": "test"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {}
+}

@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "files",
+  "info": {
+    "name": "files"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "filename": {
+      "type": "string"
+    },
+    "path": {
+      "type": "text"
+    },
+    "url": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "devices": {
+      "via": "files",
+      "collection": "devices",
+      "dominant": true
+    },
+    "doctypes": {
+      "via": "files",
+      "collection": "doctypes"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "devices",
+  "info": {
+    "name": "devices"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "sn": {
+      "type": "string"
+    },
+    "pass": {
+      "type": "password"
+    },
+    "files": {
+      "collection": "files",
+      "via": "devices"
+    },
+    "part": {
+      "model": "parts",
+      "via": "devices"
+    },
+    "companie": {
+      "model": "companies",
+      "via": "devices"
+    }
+  }
+}

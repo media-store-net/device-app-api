@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/doctypes",
+      "handler": "doctypes.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/doctypes/count",
+      "handler": "doctypes.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/doctypes/:id",
+      "handler": "doctypes.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/doctypes",
+      "handler": "doctypes.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/doctypes/:id",
+      "handler": "doctypes.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/doctypes/:id",
+      "handler": "doctypes.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

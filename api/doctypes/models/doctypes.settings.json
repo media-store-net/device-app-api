@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "doctypes",
+  "info": {
+    "name": "doctypes"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "text"
+    },
+    "files": {
+      "collection": "files",
+      "via": "doctypes",
+      "dominant": true
+    }
+  }
+}

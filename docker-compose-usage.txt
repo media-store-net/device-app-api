@@ -1,0 +1,7 @@
+Step 1. Clone the Repository
+
+Step 2. docker-compose pull
+
+Step 3. docker-compose up -d
+
+done...
