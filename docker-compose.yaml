@@ -1,6 +1,6 @@
 version: "3"
 services:
-  strapi:
+  device-app-api:
     image: strapi/strapi
     volumes:
       - ./:/srv/app
