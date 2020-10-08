@@ -16,8 +16,8 @@
       "type": "password"
     },
     "files": {
-      "collection": "files",
-      "via": "devices"
+      "via": "devices",
+      "collection": "files"
     },
     "part": {
       "model": "parts",

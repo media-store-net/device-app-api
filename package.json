@@ -1,5 +1,5 @@
 {
-  "name": "Device Adminstration API",
+  "name": "device-adminstration-api",
   "private": true,
   "version": "0.1.0",
   "description": "API Endpoints for a small device manager app",

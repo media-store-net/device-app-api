@@ -16,9 +16,8 @@
       "type": "text"
     },
     "files": {
-      "collection": "files",
-      "via": "doctypes",
-      "dominant": true
+      "via": "doctype",
+      "collection": "files"
     }
   }
 }

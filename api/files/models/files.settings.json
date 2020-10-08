@@ -16,7 +16,7 @@
       "type": "text"
     },
     "url": {
-      "collection": "file",
+      "model": "file",
       "via": "related",
       "allowedTypes": [
         "images",
@@ -27,13 +27,13 @@
       "required": false
     },
     "devices": {
-      "via": "files",
       "collection": "devices",
+      "via": "files",
       "dominant": true
     },
-    "doctypes": {
-      "via": "files",
-      "collection": "doctypes"
+    "doctype": {
+      "model": "doctypes",
+      "via": "files"
     }
   }
 }
