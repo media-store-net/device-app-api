@@ -16,8 +16,13 @@
       "type": "text"
     },
     "devices": {
-      "via": "companie",
-      "collection": "devices"
+      "collection": "devices",
+      "via": "companie"
+    },
+    "kdnr": {
+      "type": "biginteger",
+      "unique": true,
+      "required": true
     }
   }
 }

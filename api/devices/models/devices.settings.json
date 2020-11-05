@@ -24,8 +24,8 @@
       "via": "devices"
     },
     "companie": {
-      "model": "companies",
-      "via": "devices"
+      "via": "devices",
+      "model": "companies"
     }
   }
 }
