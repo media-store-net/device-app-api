@@ -23,6 +23,10 @@
       "type": "biginteger",
       "unique": true,
       "required": true
+    },
+    "pass": {
+      "type": "password",
+      "private": true
     }
   }
 }
