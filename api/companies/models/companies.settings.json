@@ -10,14 +10,15 @@
   },
   "attributes": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "desc": {
       "type": "text"
     },
     "devices": {
-      "collection": "devices",
-      "via": "companie"
+      "via": "companie",
+      "collection": "devices"
     },
     "kdnr": {
       "type": "biginteger",

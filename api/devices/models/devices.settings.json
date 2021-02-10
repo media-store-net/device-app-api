@@ -10,22 +10,25 @@
   },
   "attributes": {
     "sn": {
-      "type": "string"
+      "type": "string",
+      "required": true,
+      "unique": true
     },
     "pass": {
-      "type": "password"
+      "type": "password",
+      "required": true
     },
     "files": {
-      "via": "devices",
-      "collection": "files"
+      "collection": "files",
+      "via": "devices"
     },
     "part": {
       "model": "parts",
       "via": "devices"
     },
     "companie": {
-      "via": "devices",
-      "model": "companies"
+      "model": "companies",
+      "via": "devices"
     }
   }
 }

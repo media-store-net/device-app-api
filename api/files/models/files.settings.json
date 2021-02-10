@@ -27,8 +27,8 @@
       "required": false
     },
     "devices": {
-      "collection": "devices",
       "via": "files",
+      "collection": "devices",
       "dominant": true
     },
     "doctype": {
