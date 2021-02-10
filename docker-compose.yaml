@@ -1,24 +1,34 @@
 version: "3"
 services:
+  db:
+    image: 'mongo:latest'
+    container_name: 'mongodb'
+    restart: always
+    ports:
+      - "27017:27017"
+    env_file: ".env.mongo"
+    volumes:
+      - ./mongo-volume:/data/db
+  mongoClientTemp:
+    image: mongo:latest
+    container_name: mongoClientTemp
+    links:
+      - db:db
+    env_file: ".env.db"
+#    volumes:
+#      - ./seed-data.js:/docker-entrypoint-initdb.d/seed-data-js:ro
+    command: mongo --host db --eval  "db.getSiblingDB('powasert').createUser({user:'arturvoll', pwd:'JDSKb35QSw8!vR', roles:[{role:'readWrite',db:'powasert'}]});"
+    depends_on:
+      - db
   device-api:
     image: strapi/strapi
+    command: ['npm', 'run', 'start']
     volumes:
       - ./:/srv/app
     ports:
       - "1337:1337"
-    env_file : ".env.db"
-  #   depends_on: 
-  #     - db
-
-  # db:
-  #   image: mysql:5.7.12
-  #   command: ["mysqld", "--default-authentication-plugin=mysql_native_password", '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
-  #   # restart: always
-  #   volumes:
-  #     - ./data:/var/lib/mysql
-  #   ports:
-  #     - "3306:3306"  
-  #   env_file: ".env.mysql"
-    # security_opt:
-    #   - seccomp:unconfined
-
+    env_file: ".env.db"
+    links:
+      - db:db
+    depends_on:
+      - mongoClientTemp
