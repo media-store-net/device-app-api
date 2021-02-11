@@ -3,10 +3,15 @@ services:
   db:
     image: 'mongo:latest'
     container_name: 'mongodb'
-    restart: always
+    restart: unless-stopped
     ports:
       - "27017:27017"
-    env_file: ".env.mongo"
+    # env_file: ".env"
+    # environment:
+    #   MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+    #   MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+    #   MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    # command: [--auth]
     volumes:
       - ./mongo-volume:/data/db
   mongoClientTemp:
@@ -14,20 +19,37 @@ services:
     container_name: mongoClientTemp
     links:
       - db:db
-    env_file: ".env.db"
-#    volumes:
-#      - ./seed-data.js:/docker-entrypoint-initdb.d/seed-data-js:ro
-    command: mongo --host db --eval  "db.getSiblingDB('powasert').createUser({user:'arturvoll', pwd:'JDSKb35QSw8!vR', roles:[{role:'readWrite',db:'powasert'}]});"
+    env_file: ".env"
+    environment:
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+    command: mongo --host db --port ${DATABASE_PORT} --eval "db.getSiblingDB('${DATABASE_NAME}').createUser({user:'${DATABASE_USERNAME}', pwd:'${DATABASE_PASSWORD}', roles:[{role:'readWrite',db:'${DATABASE_NAME}'}]});"
     depends_on:
       - db
   device-api:
     image: strapi/strapi
-    command: ['npm', 'run', 'start']
+    container_name: 'device-api'
+    restart: unless-stopped
     volumes:
       - ./:/srv/app
+      - ./build.js:/bin/build.js
     ports:
       - "1337:1337"
-    env_file: ".env.db"
+    env_file: ".env"
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      AUTHENTICATION_DATABASE: ${AUTHENTICATION_DATABASE}
+    command: ['npm', 'run', 'start']
     links:
       - db:db
     depends_on:

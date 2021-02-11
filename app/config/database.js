@@ -4,7 +4,7 @@ module.exports = ({ env }) => ({
     default: {
       connector: 'mongoose',
       settings: {
-        client: 'mongo',
+        client: env('DATABASE_CLIENT', 'mongo'),
         host: env('DATABASE_HOST', 'localhost'),
         port: env.int('DATABASE_PORT', 27017),
         database: env('DATABASE_NAME', 'strapi'),
