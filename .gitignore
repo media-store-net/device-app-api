@@ -114,3 +114,7 @@ exports
 build
 .env.db
 .env.mysql
+/mongo-volume/
+/etc/
+/usr/
+/var/
