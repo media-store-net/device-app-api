@@ -1,4 +1,3 @@
-db.auth("root", "Pa$$w0rd");
 db.createUser(
   {
     user: "arturvoll",

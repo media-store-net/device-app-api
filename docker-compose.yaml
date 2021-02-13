@@ -1,56 +1,68 @@
 version: "3"
 services:
+  nginxProxy:
+    image: 'jwilder/nginx-proxy'
+    container_name: 'nginxProxy'
+    ports:
+    - "80:80"
+    - "443:443"
+    volumes:
+    - ./etc/nginx/certs:/etc/nginx/certs
+    - ./etc/nginx/vhost.d:/etc/nginx/vhost.d
+    - ./usr/share/nginx/html:/usr/share/nginx/html
+    - /var/run/docker.sock:/tmp/docker.sock:ro
+  nginxLetsencrypt:
+    image: 'jrcs/letsencrypt-nginx-proxy-companion'
+    container_name: 'nginxLetsencrypt'
+    volumes_from:
+      - nginxProxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./etc/acme.sh:/etc/acme.sh
+    environment:
+      - DEFAULT_EMAIL="letsencrypt@powasert.org"
+      - LETSENCRYPT_TEST=true
+    depends_on:
+      - nginxProxy
   db:
     image: 'mongo:latest'
     container_name: 'mongodb'
     restart: unless-stopped
     ports:
-      - "27017:27017"
-    # env_file: ".env"
-    # environment:
-    #   MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
-    #   MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-    #   MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-    # command: [--auth]
-    volumes:
-      - ./mongo-volume:/data/db
-  mongoClientTemp:
-    image: mongo:latest
-    container_name: mongoClientTemp
-    links:
-      - db:db
+      - "27017-27019:27017-27019"
     env_file: ".env"
     environment:
-      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-      DATABASE_PORT: ${DATABASE_PORT}
-      DATABASE_NAME: ${DATABASE_NAME}
-      DATABASE_USERNAME: ${DATABASE_USERNAME}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-    command: mongo --host db --port ${DATABASE_PORT} --eval "db.getSiblingDB('${DATABASE_NAME}').createUser({user:'${DATABASE_USERNAME}', pwd:'${DATABASE_PASSWORD}', roles:[{role:'readWrite',db:'${DATABASE_NAME}'}]});"
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - ./seed-data.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - ./mongo-volume:/data/db
     depends_on:
-      - db
+      - nginxLetsencrypt
   device-api:
     image: strapi/strapi
     container_name: 'device-api'
     restart: unless-stopped
     volumes:
       - ./:/srv/app
-      - ./build.js:/bin/build.js
     ports:
       - "1337:1337"
     env_file: ".env"
     environment:
-      NODE_ENV: ${NODE_ENV}
-      DATABASE_HOST: ${DATABASE_HOST}
-      DATABASE_PORT: ${DATABASE_PORT}
-      DATABASE_NAME: ${DATABASE_NAME}
-      DATABASE_USERNAME: ${DATABASE_USERNAME}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      AUTHENTICATION_DATABASE: ${AUTHENTICATION_DATABASE}
-    command: ['npm', 'run', 'start']
+      - NODE_ENV=${NODE_ENV}
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USERNAME=${DATABASE_USERNAME}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - AUTHENTICATION_DATABASE=${AUTHENTICATION_DATABASE}
+      - VIRTUAL_HOST="device-api.powasert.org"
+      - VIRTUAL_PORT="1337"
+      - LETSENCRYPT_HOST="device-api.powasert.org"
+      - LETSENCRYPT_EMAIL="letsencrypt@powasert.org"
+    command: ['npm', 'start']
     links:
       - db:db
     depends_on:
-      - mongoClientTemp
+      - nginxLetsencrypt
