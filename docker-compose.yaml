@@ -21,7 +21,7 @@ services:
       - ./etc/acme.sh:/etc/acme.sh
     environment:
       - DEFAULT_EMAIL="letsencrypt@powasert.org"
-      - LETSENCRYPT_TEST=true
+#      - LETSENCRYPT_TEST=true
     depends_on:
       - nginxProxy
   db:
