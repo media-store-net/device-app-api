@@ -18,7 +18,7 @@ module.exports = {
       pass: body.pass
     });
 
-    if (customer && customer.kdnr === body.sn && customer.pass === body.pass) {
+    if (customer) {
       const devices = await strapi.query('Devices').find({'companie.kdnr': customer.kdnr});
       ctx.send(devices);
     } else if (device && device.sn === body.sn && device.pass === body.pass) {
