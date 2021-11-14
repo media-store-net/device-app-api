@@ -3,6 +3,7 @@ services:
   nginxProxy:
     image: 'jwilder/nginx-proxy'
     container_name: 'nginxProxy'
+    restart: unless-stopped
     ports:
     - "80:80"
     - "443:443"
@@ -14,14 +15,15 @@ services:
   nginxLetsencrypt:
     image: 'jrcs/letsencrypt-nginx-proxy-companion'
     container_name: 'nginxLetsencrypt'
+    restart: unless-stopped
     volumes_from:
       - nginxProxy
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./etc/acme.sh:/etc/acme.sh
     environment:
-      - DEFAULT_EMAIL="letsencrypt@powasert.org"
-#      - LETSENCRYPT_TEST=true
+      - DEFAULT_EMAIL=letsencrypt@powasert.org
+      - LETSENCRYPT_TEST=true
     depends_on:
       - nginxProxy
   db:
@@ -57,10 +59,10 @@ services:
       - DATABASE_USERNAME=${DATABASE_USERNAME}
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
       - AUTHENTICATION_DATABASE=${AUTHENTICATION_DATABASE}
-      - VIRTUAL_HOST="device-api.powasert.org"
-      - VIRTUAL_PORT="1337"
-      - LETSENCRYPT_HOST="device-api.powasert.org"
-      - LETSENCRYPT_EMAIL="letsencrypt@powasert.org"
+      - VIRTUAL_HOST=device-api.powasert.org
+      - VIRTUAL_PORT=1337
+      - LETSENCRYPT_HOST=device-api.powasert.org
+      - LETSENCRYPT_EMAIL=letsencrypt@powasert.org
     command: ['npm', 'start']
     links:
       - db:db
