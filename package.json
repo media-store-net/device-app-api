@@ -1,7 +1,7 @@
 {
   "name": "device-adminstration-api",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "API Endpoints for a small device manager app",
   "scripts": {
     "develop": "strapi develop",
