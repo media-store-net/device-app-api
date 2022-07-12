@@ -10,6 +10,7 @@ services:
     volumes:
       - ./etc/nginx/certs:/etc/nginx/certs
       - ./etc/nginx/vhost.d:/etc/nginx/vhost.d
+      - ./etc/nginx/proxy.conf:/etc/nginx/conf.d/my_proxy.conf:ro
       - ./usr/share/nginx/html:/usr/share/nginx/html
       - /var/run/docker.sock:/tmp/docker.sock:ro
   nginxLetsencrypt:
