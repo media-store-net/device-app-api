@@ -1,0 +1,12 @@
+.tmp/
+.cache/
+.git/
+etc/
+usr/
+var/
+build/
+node_modules/
+mongo-volume/
+data/
+my-project/
+app/

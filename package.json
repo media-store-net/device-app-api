@@ -1,7 +1,7 @@
 {
   "name": "device-adminstration-api",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "API Endpoints for a small device manager app",
   "scripts": {
     "develop": "strapi develop",
@@ -11,21 +11,13 @@
   },
   "devDependencies": {},
   "dependencies": {
-    "knex": "<0.20.0",
+    "@strapi/plugin-i18n": "4.1.11",
+    "@strapi/plugin-users-permissions": "4.1.11",
+    "@strapi/strapi": "4.1.11",
+    "better-sqlite3": "7.4.6",
+    "knex": "^2.0.0",
     "mysql": "^2.18.1",
-    "npm": "^7.5.3",
-    "run": "^1.4.0",
-    "start": "^5.1.0",
-    "strapi": "3.1.5",
-    "strapi-admin": "3.1.5",
-    "strapi-connector-bookshelf": "3.1.5",
-    "strapi-connector-mongoose": "3.4.6",
-    "strapi-plugin-content-manager": "3.1.5",
-    "strapi-plugin-content-type-builder": "3.1.5",
-    "strapi-plugin-email": "3.1.5",
-    "strapi-plugin-upload": "3.1.5",
-    "strapi-plugin-users-permissions": "3.1.5",
-    "strapi-utils": "3.1.5"
+    "strapi-connector-bookshelf": "^3.6.10"
   },
   "author": {
     "name": "Artur Voll by Media-Store.net",
@@ -35,7 +27,7 @@
     "uuid": "248b1cbf-66fa-47dd-b258-50ad5a5ffb96"
   },
   "engines": {
-    "node": ">=10.0.0",
+    "node": ">=12.x.x <=16.x.x",
     "npm": ">=6.0.0"
   },
   "license": "MIT"

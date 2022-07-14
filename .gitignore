@@ -119,3 +119,4 @@ build
 /usr/
 /var/
 !/device-app-api.code-workspace
+!/data/.gitkeep
