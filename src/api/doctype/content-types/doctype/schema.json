@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "doctypes",
+  "info": {
+    "singularName": "doctype",
+    "pluralName": "doctypes",
+    "displayName": "Doctypes",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "text"
+    },
+    "media": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::media.media",
+      "mappedBy": "doctype"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "companies",
+  "info": {
+    "singularName": "companie",
+    "pluralName": "companies",
+    "displayName": "Companies",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "text"
+    },
+    "kdnr": {
+      "type": "integer"
+    },
+    "pass": {
+      "type": "password",
+      "private": true
+    },
+    "devices": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::device.device",
+      "mappedBy": "companie"
+    }
+  }
+}

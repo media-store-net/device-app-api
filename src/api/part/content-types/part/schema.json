@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "parts",
+  "info": {
+    "singularName": "part",
+    "pluralName": "parts",
+    "displayName": "Parts",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "text"
+    },
+    "devices": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::device.device",
+      "mappedBy": "part"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "devices",
+  "info": {
+    "singularName": "device",
+    "pluralName": "devices",
+    "displayName": "Devices",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "sn": {
+      "type": "string"
+    },
+    "pass": {
+      "type": "password",
+      "private": true
+    },
+    "companie": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::companie.companie",
+      "inversedBy": "devices"
+    },
+    "part": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::part.part",
+      "inversedBy": "devices"
+    },
+    "media": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::media.media",
+      "mappedBy": "devices"
+    }
+  }
+}
