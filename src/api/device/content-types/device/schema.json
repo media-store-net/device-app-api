@@ -13,7 +13,9 @@
   "pluginOptions": {},
   "attributes": {
     "sn": {
-      "type": "string"
+      "type": "string",
+      "required": true,
+      "unique": true
     },
     "pass": {
       "type": "password",

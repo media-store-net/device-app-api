@@ -11,13 +11,13 @@
   },
   "devDependencies": {},
   "dependencies": {
-    "@strapi/plugin-i18n": "4.2.3",
-    "@strapi/plugin-users-permissions": "4.2.3",
-    "@strapi/strapi": "4.2.3",
+    "@strapi/plugin-i18n": "4.13.7",
+    "@strapi/plugin-users-permissions": "4.13.7",
+    "@strapi/strapi": "4.13.7",
+    "@strapi/provider-email-nodemailer": "4.13.7",
     "better-sqlite3": "7.4.6",
-    "knex": "^2.0.0",
-    "mysql": "^2.18.1",
-    "strapi-connector-bookshelf": "^3.6.10"
+    "knex": "^2.5.1",
+    "mysql": "^2.18.1"
   },
   "author": {
     "name": "Artur Voll by Media-Store.net",
@@ -27,7 +27,7 @@
     "uuid": "248b1cbf-66fa-47dd-b258-50ad5a5ffb96"
   },
   "engines": {
-    "node": ">=12.x.x <=16.x.x",
+    "node": ">=12.x.x <=18.x.x",
     "npm": ">=6.0.0"
   },
   "license": "MIT"

@@ -13,13 +13,17 @@
   "pluginOptions": {},
   "attributes": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "required": true,
+      "unique": true
     },
     "desc": {
       "type": "text"
     },
     "kdnr": {
-      "type": "integer"
+      "type": "integer",
+      "required": true,
+      "unique": true
     },
     "pass": {
       "type": "password",

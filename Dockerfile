@@ -1,4 +1,4 @@
-FROM node:14
+FROM node:18
 
 # Installing libvips-dev for sharp compatability
 RUN apt-get update && apt-get install -y libvips-dev
