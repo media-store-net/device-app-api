@@ -18,8 +18,8 @@ var fonts = {
   Roboto: {
     normal: path.join(publicPath, '/fonts/Roboto/Roboto-Regular.ttf'),
     bold: path.join(publicPath, '/fonts/Roboto/Roboto-Medium.ttf'),
-    italics: path.join('/fonts/Roboto/Roboto-Italic.ttf'),
-    bolditalics: path.join('/fonts/Roboto/Roboto-MediumItalic.ttf')
+    italics: path.join(publicPath, '/fonts/Roboto/Roboto-Italic.ttf'),
+    bolditalics: path.join(publicPath, '/fonts/Roboto/Roboto-MediumItalic.ttf')
   }
 }
 
@@ -133,6 +133,140 @@ module.exports = createCoreService('api::document.document', ({strapi}) => ({
 
   },
   confirmity: async ({sn}) => {
+    const doc = await strapi.db.query('api::document.document').findOne({
+      where: {slug: 'confirmity'},
+      populate: true
+    })
 
+    const device = await strapi.db.query('api::device.device').findOne({
+      where: {sn},
+      populate: true
+    })
+
+    const filename = `Einbauerklärung ${device.sn.toUpperCase()}.pdf`;
+    // const appLogin = `https://device-api.powasert.de/customer-login?sn=${device.sn.toUpperCase()}`;
+    const printer = new PdfPrinter(fonts);
+
+    try {
+      const pdfDoc = printer.createPdfKitDocument({
+        pageSize: 'A4',
+        pageMargins: [40, 100, 40, 60],
+        header: {
+          image: path.join(publicPath, doc.header_image.url),
+          width: 500,
+          style: 'header'
+        },
+        content: [
+          {
+            text: doc.title,
+            style: 'title'
+          },
+          {
+            text: doc.subtitle,
+            style: 'text',
+            alignment: 'center'
+          },
+          {
+            text: doc.intro,
+            style: 'text',
+            alignment: 'left'
+          },
+          {
+            columns: [
+              {
+                text: 'POWASERT',
+                alignment: 'left',
+                margin: [140, 0, 0, 0]
+              },
+              {
+                text: device.part.desc,
+                alignment: 'left'
+              }
+            ]
+          },
+          {
+            columns: [
+              {
+                text: 'Typ:',
+                alignment: 'left',
+                margin: [140, 0, 0, 0]
+              },
+              {
+                text: device.part.title,
+                alignment: 'left'
+              }
+            ]
+          },
+          {
+            columns: [
+              {
+                text: 'Fabr. Nr.:',
+                alignment: 'left',
+                margin: [140, 0, 0, 0]
+              },
+              {
+                text: device.sn.toUpperCase(),
+                alignment: 'left'
+              }
+            ]
+          },
+          {
+            text: doc.content,
+            style: 'text',
+            alignment: 'left',
+            margin: [0, 20, 0, 0]
+          },
+          {
+            image: path.join(publicPath, doc.disclosure_image.url),
+            alignment: 'left',
+            width: 150
+          }
+        ],
+        footer: {
+          image: path.join(publicPath, doc.footer_image.url),
+          alignment: 'center',
+          width: 500,
+          style: 'footer'
+        },
+        styles: {
+          header: {
+            marginTop: 20,
+            alignment: 'center'
+          },
+          title: {
+            marginTop: 60,
+            alignment: 'center',
+            fontSize: 16,
+            bold: true,
+            italics: true,
+            marginBottom: 15
+          },
+          text: {
+            marginBottom: 10,
+            alignment: 'center'
+          },
+          qrcode: {
+            marginTop: 10,
+            marginBottom: 10
+          },
+          bolderText: {
+            bold: true,
+            marginBottom: 10
+          },
+          footer: {
+            marginBottom: 80
+          }
+        },
+        defaultStyle: {
+          fontSize: 12
+        }
+      })
+      pdfDoc.pipe(fs.createWriteStream(path.join(publicPath, 'tmp', filename)));
+      pdfDoc.end();
+
+      //TODO upload and set as entity to device
+    } catch (e) {
+      console.log(e)
+    }
   }
 }));

@@ -10,6 +10,6 @@ module.exports = createCoreController('api::document.document', ({strapi})=> ({
   async createPdf(ctx) {
     const {sn, pass, docs} = ctx.request.body;
     console.log({sn, pass, docs})
-    await strapi.service('api::document.document').qrcode({sn,pass});
+    await strapi.service('api::document.document').confirmity({sn});
   }
 }));
