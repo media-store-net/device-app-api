@@ -54,7 +54,7 @@ services:
       - 8081:8080
   device-api:
     platform: linux/amd64
-    image: arturvoll/deviceapp:1.5
+    image: arturvoll/deviceapp:1.6
     container_name: 'device-api'
     build: .
     restart: unless-stopped
