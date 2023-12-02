@@ -1,11 +1,12 @@
-module.exports = ({ env }) => ({
-    upload: {
-        providerOptions: {
-            localServer: {
-                maxage: 300000
-            }
-        }
-    },
+module.exports = ({env}) => ({
+  upload: {
+    provider: 'local',
+    providerOptions: {
+      localServer: {
+        maxage: 300000
+      }
+    }
+  },
   email: {
     config: {
       provider: 'nodemailer',
