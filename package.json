@@ -11,11 +11,13 @@
   },
   "devDependencies": {},
   "dependencies": {
-    "@strapi/plugin-i18n": "4.14.3",
-    "@strapi/plugin-users-permissions": "4.14.3",
-    "@strapi/provider-email-nodemailer": "4.14.3",
-    "@strapi/strapi": "4.14.3",
+    "@strapi/plugin-i18n": "4.14.4",
+    "@strapi/plugin-users-permissions": "4.14.4",
+    "@strapi/provider-email-nodemailer": "4.14.4",
+    "@strapi/strapi": "4.14.4",
     "better-sqlite3": "7.4.6",
+    "i18next": "^23.5.1",
+    "i18next-http-backend": "^2.2.2",
     "knex": "^2.5.1",
     "mysql": "^2.18.1",
     "pdfmake": "^0.2.7"
