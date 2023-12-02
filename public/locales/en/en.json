@@ -1,0 +1,15 @@
+{
+  "translation": {
+    "qrcode": {
+      "filename": "Passwort and QR-Code",
+      "difficult": "Any difficulties?",
+      "panic": "No need to panic – ask us!"
+    },
+    "confirmity": {
+      "filename": "Declaration of confirmity"
+    },
+    "mounting": {
+      "filename": "Declaration of incorporation"
+    }
+  }
+}

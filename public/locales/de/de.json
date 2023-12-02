@@ -1,0 +1,15 @@
+{
+  "translation": {
+    "qrcode": {
+      "filename": "Passwort und QR-Code",
+      "difficult": "Tauchen Schwierigkeiten auf?",
+      "panic": "Kein Grund zur Panik – Fragen Sie uns!"
+    },
+    "confirmity": {
+      "filename": "Konfirmitätserklärung"
+    },
+    "mounting": {
+      "filename": "Einbauerklärung"
+    }
+  }
+}
