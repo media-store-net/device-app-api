@@ -55,6 +55,7 @@ module.exports = createCoreService('api::document.document', ({strapi}) => ({
     })
 
     const filename = `${i18next.t('qrcode.filename', {lng: locale})}_${device.sn.toUpperCase()}.pdf`;
+    // Generate a Link to App-Login and use it in QR Code
     const appLogin = `https://device-app.powasert.org/customer-login?sn=${device.sn.toUpperCase()}`;
     const printer = new PdfPrinter(fonts);
 
