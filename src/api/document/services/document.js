@@ -55,7 +55,7 @@ module.exports = createCoreService('api::document.document', ({strapi}) => ({
     })
 
     const filename = `${i18next.t('qrcode.filename', {lng: locale})}_${device.sn.toUpperCase()}.pdf`;
-    const appLogin = `https://device-api.powasert.de/customer-login?sn=${device.sn.toUpperCase()}`;
+    const appLogin = `https://device-app.powasert.org/customer-login?sn=${device.sn.toUpperCase()}`;
     const printer = new PdfPrinter(fonts);
 
     try {
@@ -657,7 +657,7 @@ async prepareMediasAndSendEmail(medias = [], sn = '') {
       }))
 
       const res = await strapi.plugins['email'].services.email.send({
-        to: 'info@pcservice-voll.de',
+        to: 'info@powasert.de',
         from: 'noreply@media-store.net',
         subject: `Dateien für SN: ${sn} wurden generiert!`,
         html: `<p>Anbei die neuen Dateien</p>`,
